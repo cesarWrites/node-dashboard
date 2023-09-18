@@ -23,8 +23,9 @@ import routerBindings, {
 } from "@refinedev/react-router-v6";
 import dataProvider from "@refinedev/simple-rest";
 import axios, { AxiosRequestConfig } from "axios";
+import { Title, Sider, Layout, Header } from "./components/layout"
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import { Header } from "./components/header";
+// import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { CredentialResponse } from "./interfaces/google";
 import {
@@ -41,6 +42,8 @@ import {
 } from "./pages/categories";
 import { Login } from "./pages/login";
 import { parseJwt } from "./utils/parse-jwt";
+import { MuiInferencer } from "@refinedev/inferencer/mui";
+import { AccountCircleOutlined, ChatBubbleOutline, PeopleAltOutlined, StarOutlineRounded, VillaOutlined } from "@mui/icons-material";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -148,26 +151,57 @@ function App() {
               authProvider={authProvider}
               resources={[
                 {
-                  name: "blog_posts",
-                  list: "/blog-posts",
-                  create: "/blog-posts/create",
-                  edit: "/blog-posts/edit/:id",
-                  show: "/blog-posts/show/:id",
+                  name: "property",
+                  list: MuiInferencer,
+                  icon: <VillaOutlined />,
                   meta: {
                     canDelete: true,
                   },
                 },
                 {
-                  name: "categories",
-                  list: "/categories",
-                  create: "/categories/create",
-                  edit: "/categories/edit/:id",
-                  show: "/categories/show/:id",
+                  name: "agent",
+                  list: MuiInferencer,
+                  icon: <PeopleAltOutlined />,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "review",
+                  list: MuiInferencer,
+                  icon: <StarOutlineRounded />,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "message",
+                  list: MuiInferencer,
+                  icon: <ChatBubbleOutline />,
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "my-profile",
+                  options: {label: 'My Profile '
+                },
+                  list: MuiInferencer,
+                  icon: <AccountCircleOutlined />,
                   meta: {
                     canDelete: true,
                   },
                 },
               ]}
+              Title={Title}
+                    Sider={Sider}
+                    Layout={Layout}
+                    Header={Header}
+                    legacyRouterProvider={routerProvider}
+                    legacyAuthProvider={authProvider}
+                    LoginPage={Login}
+                    DashboardPage={Home}
+
               options={{
                 syncWithLocation: true,
                 warnWhenUnsavedChanges: true,
